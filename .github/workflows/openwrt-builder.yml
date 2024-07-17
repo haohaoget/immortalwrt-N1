@@ -106,7 +106,7 @@ jobs:
         PACKAGE_SOC: diy
         GZIP_IMGS: .xz
         SCRIPT_DIY_PATH: N1/mk_s905d_n1.sh
-        WHOAMI: innmonkey
+        WHOAMI: haohaoget
         SW_FLOWOFFLOAD: 1
         SFE_FLOW: 0
         ENABLE_WIFI_K510: 0
@@ -145,8 +145,12 @@ jobs:
         body_path: release.txt
         token: ${{ env.GITHUB_TOKEN }}
 
-    - name: TG推送
-      run: curl "https://api2.pushdeer.com/message/push?pushkey=${{ secrets.PUSHDEER_TOKEN }}&text=【Github Actions】OpenWrt-N1打包成功"
+    - name: 电报机器人信息通知
+      if: env.TELEGRAM_BOT_TOKEN
+      run: |
+        if [[ "${{steps.compile.outcome}}" == 'success' ]]; then
+            curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=我亲爱的✨主人✨：您使用【${{ env.REPO_URL }}】源码编译【${REPO_BRANCH}分支的固件顺利编译完成了✌️💯💐！($(date +%Y年%m月%d号%H时%M分))" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
+        fi
 
     - name: 删除运行记录
       uses: Mattraks/delete-workflow-runs@main
