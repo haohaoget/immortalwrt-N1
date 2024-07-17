@@ -20,8 +20,7 @@ git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
 git clone --depth=1 https://github.com/ophub/luci-app-amlogic package/amlogic
 git_sparse_clone master https://github.com/kiddin9/openwrt-packages luci-app-aliddns
 git_sparse_clone master https://github.com/kiddin9/openwrt-packages luci-app-pushbot
-git_sparse_clone master https://github.com/kiddin9/openwrt-packages luci-app-linkease linkease linkmount
- ffmpeg-remux
+git_sparse_clone master https://github.com/kiddin9/openwrt-packages luci-app-linkease linkease linkmount ffmpeg-remux
 #git_sparse_clone master https://github.com/kiddin9/openwrt-packages luci-app-turboacc
 
 # 加入OpenClash核心
