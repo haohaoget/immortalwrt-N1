@@ -141,14 +141,16 @@ jobs:
       if: ${{ env.tag_status == 'success' }} && !cancelled()
       with:
         tag_name: OpenWrt_${{ env.PACKAGED_OUTPUTDATE }}
-        files: ${{ env.PACKAGED_OUTPUTPATH }}/*.img.xz
+        files: |
+             ${{ env.PACKAGED_OUTPUTPATH }}/*.img.xz
+             ${{ github.workspace }}/openwrt/.config
         body_path: release.txt
         token: ${{ env.GITHUB_TOKEN }}
 
     - name: 电报机器人信息通知
       if: env.TELEGRAM_BOT_TOKEN
       run: |
-        if [[ "${{steps.compile.outcome}}" == 'success' ]]; then
+        if [[ ${{ env.compile_status }} == 'success' && !cancelled() ]]; then
             curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=我亲爱的✨主人✨：您使用【${{ env.REPO_URL }}】源码编译【${REPO_BRANCH}分支的固件顺利编译完成了✌️💯💐！($(date +%Y年%m月%d号%H时%M分))" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
         fi
 
