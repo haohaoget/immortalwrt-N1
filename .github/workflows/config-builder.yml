@@ -67,9 +67,6 @@ jobs:
       run: |
         cd openwrt
         ./scripts/diffconfig.sh > diffconfig
-        rm .config
-        cp diffconfig .config
-        chmod +x .config
         echo "release_tag=$(date +"%Y.%m.%d-%H.%M")" >> ${GITHUB_OUTPUT}
         touch release.txt
         echo "
@@ -87,7 +84,7 @@ jobs:
       uses: softprops/action-gh-release@master
       with:
         tag_name: OpenWrt_config_$(date +"%Y.%m.%d-%H.%M")
-        files: ${{ github.workspace }}/openwrt/.config
+        files: ${{ github.workspace }}/openwrt/diffconfig
         body_path: release.txt
         token: ${{ env.GITHUB_TOKEN }}
 
