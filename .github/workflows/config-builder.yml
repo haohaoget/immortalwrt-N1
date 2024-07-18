@@ -1,0 +1,95 @@
+name: Build ImmortalWrt config for N1
+
+on:
+  workflow_dispatch:
+   inputs:
+      ssh:
+        description: 'SSH connection to Actions'
+        required: true
+        default: 'true'
+#  schedule:
+#    - cron: "0 0 1,16 * *"
+
+env:
+  REPO_URL: https://github.com/immortalwrt/immortalwrt
+  REPO_BRANCH: openwrt-23.05
+  CONFIG_FILE: N1/.config
+  DIY_SH: N1/diy.sh
+  FILES: N1/files
+  TZ: Asia/Shanghai
+  GITHUB_TOKEN: ${{ secrets.TOKEN }}
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: 准备完成
+      uses: actions/checkout@main
+
+    - name: 初始化编译环境
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo -E apt-get -qq update -y
+        sudo -E apt-get -qq install -y $(curl -fsSL https://raw.githubusercontent.com/nantayo/My-Pkg/master/2305)
+        sudo -E apt-get -qq autoremove --purge
+        sudo -E apt-get -qq clean
+        sudo timedatectl set-timezone "$TZ"
+        sudo mkdir -p /workdir
+        sudo chown $USER:$GROUPS /workdir
+
+    - name: 克隆源码
+      working-directory: /workdir
+      run: |
+        git clone $REPO_URL -b $REPO_BRANCH --single-branch --depth=1 openwrt
+        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+
+    - name: 更新 & 安装 feeds
+      working-directory: ./openwrt
+      run: |
+        ./scripts/feeds update -a
+        ./scripts/feeds install -a
+
+    - name: 加载自定义配置
+      run: |
+        [ -e $FILES ] && mv $FILES openwrt/files
+        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        chmod +x $DIY_SH
+        cd openwrt
+        $GITHUB_WORKSPACE/$DIY_SH
+
+    - name: SSH 连接到 Actions
+      uses: P3TERX/ssh2actions@main
+      if: (github.event.inputs.ssh == 'true') || contains(github.event.action, 'ssh')
+
+    - name: 生成发布标签
+      run: |
+        echo "release_tag=$(date +"%Y.%m.%d-%H.%M")" >> ${GITHUB_OUTPUT}
+        touch release.txt
+        echo "
+        💻 适用机型: 斐讯N1
+
+        📂 源码: ${{ env.REPO_URL }}
+
+        🌳 分支: ${{ env.REPO_BRANCH }}
+
+        ⏱️ config时间: $(date +"%Y年%m月%d日%H时%M分")
+        " >> release.txt
+        echo "tag_status=success" >> $GITHUB_ENV
+
+    - name: 发布config到 Releases
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: OpenWrt_config
+        files: ${{ github.workspace }}/openwrt/.config
+        body_path: release.txt
+        token: ${{ env.GITHUB_TOKEN }}
+
+
+    - name: 删除运行记录
+      uses: Mattraks/delete-workflow-runs@main
+      with:
+        retain_days: 1
+        keep_minimum_runs: 1
+        token: ${{ env.GITHUB_TOKEN }}
