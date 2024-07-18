@@ -65,6 +65,8 @@ jobs:
 
     - name: 生成发布标签
       run: |
+        ./scripts/diffconfig.sh > diffconfig
+        cp diffconfig .config
         echo "release_tag=$(date +"%Y.%m.%d-%H.%M")" >> ${GITHUB_OUTPUT}
         touch release.txt
         echo "
