@@ -65,8 +65,11 @@ jobs:
 
     - name: 生成发布标签
       run: |
+        cd openwrt
         ./scripts/diffconfig.sh > diffconfig
+        rm .config
         cp diffconfig .config
+        chmod +x .config
         echo "release_tag=$(date +"%Y.%m.%d-%H.%M")" >> ${GITHUB_OUTPUT}
         touch release.txt
         echo "
