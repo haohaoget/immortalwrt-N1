@@ -81,7 +81,7 @@ jobs:
     - name: 发布config到 Releases
       uses: softprops/action-gh-release@master
       with:
-        tag_name: OpenWrt_config
+        tag_name: OpenWrt_config_$(date +"%Y.%m.%d-%H.%M")
         files: ${{ github.workspace }}/openwrt/.config
         body_path: release.txt
         token: ${{ env.GITHUB_TOKEN }}
