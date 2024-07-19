@@ -4,9 +4,15 @@
 - 添加 amlogic
 - 添加 dockerman
 - 添加 Mosdns
-- 添加 Pushbot
+- 添加 passwall
+- 添加 homeproxy
+- 添加 ttyd
+- 添加 tailscale
+- 添加 netdata
+- 添加 unblockneteasemusic
+- 添加 socat
 - 添加 OpenClash
-- 添加 阿里DDNS
+- 添加 DDNS
 - 添加 网络唤醒
 ***
 # 致谢
