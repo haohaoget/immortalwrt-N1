@@ -151,7 +151,7 @@ jobs:
     - name: 电报机器人信息通知
       if: env.TELEGRAM_BOT_TOKEN
       run: |
-        if [[ ${{ env.compile_status }} == 'success' && !cancelled() ]]; then
+        if [[ ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled() ]]; then
             curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=我亲爱的✨主人✨：您使用【${{ env.REPO_URL }}】源码编译【${REPO_BRANCH}分支的固件顺利编译完成了✌️💯💐！($(date +%Y年%m月%d号%H时%M分))" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
         fi
 
