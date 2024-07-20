@@ -18,8 +18,8 @@ git clone -b js --single-branch https://github.com/gngpp/luci-theme-design packa
 git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
 git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
 git clone --depth=1 https://github.com/ophub/luci-app-amlogic package/amlogic
-git_sparse_clone master https://github.com/kiddin9/openwrt-packages luci-app-aliddns
-git_sparse_clone master https://github.com/kiddin9/openwrt-packages luci-app-pushbot
+git_sparse_clone master https://github.com/kiddin9/openwrt-packages luci-app-unblockneteasemusic UnblockNeteaseMusic
+git_sparse_clone master https://github.com/kiddin9/openwrt-packages luci-app-homebox homebox
 git_sparse_clone master https://github.com/kiddin9/openwrt-packages luci-app-linkease linkease linkmount ffmpeg-remux
 #git_sparse_clone master https://github.com/kiddin9/openwrt-packages luci-app-turboacc
 
@@ -31,8 +31,8 @@ echo "
 # 插件
 #CONFIG_PACKAGE_luci-theme-design=y
 CONFIG_PACKAGE_luci-app-mosdns=y
-CONFIG_PACKAGE_luci-app-pushbot=y
-CONFIG_PACKAGE_luci-app-aliddns=y
+CONFIG_PACKAGE_luci-app-unblockneteasemusic=y
+CONFIG_PACKAGE_luci-app-homebox=y
 CONFIG_PACKAGE_luci-app-linkease=y
 #CONFIG_PACKAGE_luci-app-turboacc=y
 " >> .config
