@@ -17,7 +17,7 @@ function git_sparse_clone() {
 git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
 git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
 git clone --depth=1 https://github.com/ophub/luci-app-amlogic package/amlogic
-git_sparse_clone master https://github.com/kiddin9/openwrt-packages luci-app-unblockneteasemusic UnblockNeteaseMusic
+#git_sparse_clone master https://github.com/kiddin9/openwrt-packages luci-app-unblockneteasemusic UnblockNeteaseMusic
 git_sparse_clone master https://github.com/kiddin9/openwrt-packages luci-app-linkease linkease linkmount ffmpeg-remux
 git_sparse_clone master https://github.com/kiddin9/openwrt-packages luci-app-lucky lucky
 #git_sparse_clone master https://github.com/kiddin9/openwrt-packages luci-app-turboacc
@@ -32,13 +32,13 @@ echo "
 CONFIG_PACKAGE_luci-app-mosdns=y
 CONFIG_PACKAGE_luci-app-passwall=y
 CONFIG_PACKAGE_luci-app-lucky=y
-CONFIG_PACKAGE_luci-app-unblockneteasemusic=y
 CONFIG_PACKAGE_luci-app-linkease=y
 #CONFIG_PACKAGE_luci-app-turboacc=y
 " >> .config
+#CONFIG_PACKAGE_luci-app-unblockneteasemusic=y
 
 # 修改默认IP
-sed -i 's/192.168.1.1/192.168.2.5/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/10.0.2.3/g' package/base-files/files/bin/config_generate
 
 # 修改默认主题
 sed -i 's/luci-theme-design/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
