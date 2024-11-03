@@ -97,6 +97,18 @@ jobs:
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 || make -j1 V=s
         echo "compile_status=success" >> $GITHUB_ENV
+        
+    - name: Free up space2
+      uses: jlumbroso/free-disk-space@main
+      with:
+        tool-cache: false
+        android: true
+        dotnet: true
+        haskell: true
+        large-packages: true
+        docker-images: true
+        swap-storage: true
+
 
     - name: 打包镜像文件
       if: ${{ env.compile_status }} == 'success' && !cancelled()
@@ -114,7 +126,7 @@ jobs:
         ENABLE_WIFI_K510: 0
 
     - name: 生成发布标签
-      if: ${{ env.PACKAGED_STATUS == 'success' }} && !cancelled()
+      if: ${{ env.PACKAGED_STATUS == 'success' && !cancelled() }} 
       run: |
         echo "release_tag=$(date +"%Y.%m.%d-%H.%M")" >> ${GITHUB_OUTPUT}
         touch release.txt
@@ -140,7 +152,7 @@ jobs:
 
     - name: 发布固件到 Releases
       uses: softprops/action-gh-release@master
-      if: ${{ env.tag_status == 'success' }} && !cancelled()
+      if: ${{ env.tag_status == 'success' && env.PACKAGED_STATUS == 'success' && !cancelled() }}
       with:
         tag_name: OpenWrt_${{ env.PACKAGED_OUTPUTDATE }}
         files: |
@@ -150,9 +162,9 @@ jobs:
         token: ${{ env.GITHUB_TOKEN }}
 
     - name: 电报机器人信息通知
-      if: env.TELEGRAM_BOT_TOKEN && ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
+      if: env.TELEGRAM_BOT_TOKEN && ${{ env.PACKAGED_STATUS == 'success' }} && !cancelled()
       run: |
-        curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=我亲爱的✨主人✨：您使用【 ${{ env.REPO_URL }} 】源码编译【${REPO_BRANCH}分支的固件顺利编译${{ env.PACKAGED_STATUS }}了✌️💯💐！($(date +%Y年%m月%d号%H时%M分))" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
+        curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=我亲爱的✨主人✨：您使用【 ${{ env.REPO_URL }} 】源码编译【${REPO_BRANCH}分支的固件编译${{ env.PACKAGED_STATUS }}了！($(date +%Y年%m月%d号%H时%M分))" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
 
 
     - name: 删除运行记录
