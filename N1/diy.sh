@@ -20,6 +20,7 @@ git clone --depth=1 https://github.com/ophub/luci-app-amlogic package/amlogic
 #git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-unblockneteasemusic UnblockNeteaseMusic
 git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-linkease linkease linkmount ffmpeg-remux
 git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-lucky lucky
+git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-mihomo mihomo
 #git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-turboacc
 
 # 加入OpenClash核心
@@ -32,6 +33,7 @@ echo "
 CONFIG_PACKAGE_luci-app-mosdns=y
 CONFIG_PACKAGE_luci-app-passwall=y
 CONFIG_PACKAGE_luci-app-lucky=y
+CONFIG_PACKAGE_luci-app-mihomo=y
 CONFIG_PACKAGE_luci-app-linkease=y
 #CONFIG_PACKAGE_luci-app-turboacc=y
 " >> .config
