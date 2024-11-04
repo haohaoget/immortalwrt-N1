@@ -18,9 +18,9 @@ git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
 git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
 git clone --depth=1 https://github.com/ophub/luci-app-amlogic package/amlogic
 #git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-unblockneteasemusic UnblockNeteaseMusic
-git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-linkease linkease linkmount ffmpeg-remux
-git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-lucky lucky
-git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-mihomo mihomo
+git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-linkease linkease linkmount ffmpeg-remux\
+                                                               luci-app-lucky lucky\
+                                                               luci-app-mihomo mihomo
 #git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-turboacc
 
 # 加入OpenClash核心
