@@ -19,9 +19,9 @@ git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
 git clone --depth=1 https://github.com/ophub/luci-app-amlogic package/amlogic
 #git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-unblockneteasemusic UnblockNeteaseMusic
 git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-linkease linkease linkmount ffmpeg-remux\
-                                                               luci-app-lucky lucky\
-                                                               luci-app-mihomo mihomo
-#git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-turboacc
+                                                               luci-app-mihomo mihomo\
+                                                               luci-app-lucky lucky                                                               
+git_sparse_clone master https://github.com/openwrt/packages net/tailscale
 
 # 加入OpenClash核心
 #chmod -R a+x $GITHUB_WORKSPACE/preset-clash-core.sh
@@ -35,6 +35,7 @@ CONFIG_PACKAGE_luci-app-passwall=y
 CONFIG_PACKAGE_luci-app-lucky=y
 CONFIG_PACKAGE_luci-app-mihomo=y
 CONFIG_PACKAGE_luci-app-linkease=y
+CONFIG_PACKAGE_tailscale=y
 #CONFIG_PACKAGE_luci-app-turboacc=y
 " >> .config
 #CONFIG_PACKAGE_luci-app-unblockneteasemusic=y
