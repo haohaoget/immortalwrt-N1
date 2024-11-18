@@ -19,8 +19,8 @@ git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
 git clone --depth=1 https://github.com/ophub/luci-app-amlogic package/amlogic
 #git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-unblockneteasemusic UnblockNeteaseMusic
 git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-linkease linkease linkmount ffmpeg-remux\
-                                                               luci-app-mihomo mihomo\
-                                                               luci-app-lucky lucky                                                               
+                                                               luci-app-lucky lucky
+git_sparse_clone main https://github.com/morytyann/OpenWrt-mihomo luci-app-mihomo mihomo
 git_sparse_clone master https://github.com/openwrt/packages net/tailscale
 
 # 加入OpenClash核心
