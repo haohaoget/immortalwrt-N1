@@ -14,12 +14,12 @@ function git_sparse_clone() {
 }
 
 # Add packages
-git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
-git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
+#git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
+#git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
 git clone --depth=1 https://github.com/ophub/luci-app-amlogic package/amlogic
 #git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-unblockneteasemusic UnblockNeteaseMusic
-git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-linkease linkease linkmount ffmpeg-remux\
-                                                               luci-app-lucky lucky
+#git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-linkease linkease linkmount ffmpeg-remux\
+git_sparse_clone main https://github.com/gdy666/luci-app-lucky luci-app-lucky lucky
 git_sparse_clone main https://github.com/morytyann/OpenWrt-mihomo luci-app-mihomo mihomo
 git_sparse_clone master https://github.com/openwrt/packages net/tailscale
 
@@ -30,11 +30,11 @@ git_sparse_clone master https://github.com/openwrt/packages net/tailscale
 echo "
 # 插件
 #CONFIG_PACKAGE_luci-theme-design=y
-CONFIG_PACKAGE_luci-app-mosdns=y
+#CONFIG_PACKAGE_luci-app-mosdns=y
 CONFIG_PACKAGE_luci-app-passwall=y
 CONFIG_PACKAGE_luci-app-lucky=y
 CONFIG_PACKAGE_luci-app-mihomo=y
-CONFIG_PACKAGE_luci-app-linkease=y
+#CONFIG_PACKAGE_luci-app-linkease=y
 CONFIG_PACKAGE_tailscale=y
 #CONFIG_PACKAGE_luci-app-turboacc=y
 " >> .config
