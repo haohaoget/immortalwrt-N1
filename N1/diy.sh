@@ -22,6 +22,8 @@ git clone --depth=1 https://github.com/ophub/luci-app-amlogic package/amlogic
 git_sparse_clone main https://github.com/gdy666/luci-app-lucky luci-app-lucky lucky
 git_sparse_clone main https://github.com/morytyann/OpenWrt-mihomo luci-app-mihomo mihomo
 git_sparse_clone master https://github.com/openwrt/packages net/tailscale
+git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall luci-app-passwall
+#git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall-packages v2ray-geodata
 
 # 加入OpenClash核心
 #chmod -R a+x $GITHUB_WORKSPACE/preset-clash-core.sh
