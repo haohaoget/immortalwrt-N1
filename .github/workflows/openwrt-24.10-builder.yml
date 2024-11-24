@@ -100,8 +100,8 @@ jobs:
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 || make -j1 V=s
         echo "compile_status=success" >> $GITHUB_ENV
-        cd openwrt/bin/targets/*/*
-        rm -rf packages
+        df -hT
+        rm -rf bin/targets/*/*/packages
         
     - name: Free up space2
       uses: jlumbroso/free-disk-space@main
