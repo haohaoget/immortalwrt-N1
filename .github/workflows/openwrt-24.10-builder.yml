@@ -101,7 +101,8 @@ jobs:
         make -j$(nproc) || make -j1 || make -j1 V=s
         echo "compile_status=success" >> $GITHUB_ENV
         df -hT
-        rm -rf bin/targets/*/*/packages
+        rm -rf ${{ github.workspace }}/openwrt/bin/targets/*/*/packages
+        df -hT
         
     - name: Free up space2
       uses: jlumbroso/free-disk-space@main
