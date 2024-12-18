@@ -156,7 +156,7 @@ jobs:
         echo "tag_status=success" >> $GITHUB_ENV
 
     - name: 发布固件到 Releases
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       if: ${{ env.tag_status == 'success' && env.PACKAGED_STATUS == 'success' && !cancelled() }}
       with:
         tag_name: OpenWrt_${{ env.PACKAGED_OUTPUTDATE }}
