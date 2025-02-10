@@ -20,7 +20,7 @@ git clone --depth=1 https://github.com/ophub/luci-app-amlogic package/amlogic
 #git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-unblockneteasemusic UnblockNeteaseMusic
 #git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-linkease linkease linkmount ffmpeg-remux\
 git_sparse_clone main https://github.com/gdy666/luci-app-lucky luci-app-lucky lucky
-git_sparse_clone main https://github.com/morytyann/OpenWrt-mihomo luci-app-mihomo mihomo
+git_sparse_clone main https://github.com/nikkinikki-org/OpenWrt-nikki luci-app-nikki nikki
 git_sparse_clone master https://github.com/openwrt/packages net/tailscale
 git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall luci-app-passwall
 #git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall-packages v2ray-geodata
@@ -35,7 +35,7 @@ echo "
 #CONFIG_PACKAGE_luci-app-mosdns=y
 CONFIG_PACKAGE_luci-app-passwall=y
 CONFIG_PACKAGE_luci-app-lucky=y
-CONFIG_PACKAGE_luci-app-mihomo=y
+CONFIG_PACKAGE_luci-app-nikki=y
 #CONFIG_PACKAGE_luci-app-linkease=y
 CONFIG_PACKAGE_tailscale=y
 #CONFIG_PACKAGE_luci-app-turboacc=y
@@ -43,7 +43,7 @@ CONFIG_PACKAGE_tailscale=y
 #CONFIG_PACKAGE_luci-app-unblockneteasemusic=y
 
 # 修改默认IP
-sed -i 's/192.168.1.1/10.0.2.3/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.2.5/g' package/base-files/files/bin/config_generate
 
 # 修改默认主题
 sed -i 's/luci-theme-design/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
