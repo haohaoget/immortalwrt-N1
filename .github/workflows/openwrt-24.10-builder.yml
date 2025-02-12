@@ -56,7 +56,7 @@ jobs:
     - name: 克隆源码
       working-directory: /workdir
       run: |
-        LatestTag=$(curl -s https://api.github.com/repos/immortalwrt/immortalwrt/tags | jq -r '.[] | select((.name | contains($REPO_BRANCH)) and (.name| contains("-rc") | not)) | .name' | head -n 1)
+        LatestTag=$(curl -s https://api.github.com/repos/immortalwrt/immortalwrt/tags | jq -r --arg branch "$REPO_BRANCH" '.[] | select((.name | contains($branch)) and (.name| contains("-rc") | not)) | .name' | head -n 1)
         echo "获取到'$REPO_BRANCH'版本最新稳定版tag: '$LatestTag'"
         if [[ -z $LatestTag ]]; then
             echo "No stable tag found! Use the default branch openwrt-24.10"
