@@ -58,6 +58,12 @@ jobs:
       run: |
         LatestTag=$(curl -s https://api.github.com/repos/immortalwrt/immortalwrt/tags | jq -r '.[] | select((.name | contains($REPO_BRANCH)) and (.name| contains("-rc") | not)) | .name' | head -n 1)
         echo "获取到'$REPO_BRANCH'版本最新稳定版tag: '$LatestTag'"
+        if [[ -z $LatestTag ]]; then
+            echo "No stable tag found! Use the default branch openwrt-24.10"
+            LatestTag='openwrt-24.10'
+        fi
+        echo "USETAG=$LatestTag" >> $GITHUB_ENV
+        echo "编译使用分支: '$USETAG'"
         git clone $REPO_URL -b $LatestTag --single-branch --depth=1 openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
@@ -171,7 +177,7 @@ jobs:
     - name: 电报机器人信息通知
       if: env.TELEGRAM_BOT_TOKEN && ${{ env.PACKAGED_STATUS == 'success' }} && !cancelled()
       run: |
-        curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=我亲爱的✨主人✨：您使用【 ${{ env.REPO_URL }} 】源码编译【${REPO_BRANCH}分支的固件编译${{ env.PACKAGED_STATUS }}了！($(date +%Y年%m月%d号%H时%M分))" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
+        curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=我亲爱的✨主人✨：您使用【 ${{ env.REPO_URL }} 】源码编译【${USETAG}分支的固件编译${{ env.PACKAGED_STATUS }}了！($(date +%Y年%m月%d号%H时%M分))" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
 
 
     - name: 删除运行记录
