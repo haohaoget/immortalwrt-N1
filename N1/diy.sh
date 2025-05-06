@@ -55,10 +55,11 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/M
 sed -i 's/ImmortalWrt/OpenWrt/g' package/base-files/files/bin/config_generate
 
 # 添加系统升级时的备份信息
-local conf_path="$BUILD_DIR/package/base-files/files/etc/sysupgrade.conf"
+function add_backup_info_to_sysupgrade() {
+    local conf_path="$BUILD_DIR/package/base-files/files/etc/sysupgrade.conf"
 
-if [ -f "$conf_path" ]; then
-    cat >"$conf_path" <<'EOF'
+    if [ -f "$conf_path" ]; then
+        cat >"$conf_path" <<'EOF'
 /etc/AdGuardHome.yaml
 /etc/easytier
 /etc/tailscale/
@@ -66,7 +67,10 @@ if [ -f "$conf_path" ]; then
 /etc/nikki/
 /etc/cloudflared/
 EOF
-fi
+    fi
+}
+add_backup_info_to_sysupgrade
+
 # 修改主题背景
 cp -f $GITHUB_WORKSPACE/argon/img/bg1.jpg feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
 cp -f $GITHUB_WORKSPACE/argon/img/argon.svg feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/img/argon.svg
